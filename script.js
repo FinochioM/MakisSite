@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Scala Libraries page loaded');
-    
+document.addEventListener('DOMContentLoaded', function() {    
     const libraries = [
         {
             name: 'S2D',

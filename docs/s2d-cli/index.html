@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S2D CLI Documentation</title>
+    <meta name="description" content="The S2D CLI tool for creating and managing S2D projects">
+    <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+    <header id="top-bar">
+        <div class="row">
+            <a id="nav-icon">
+                <span class="nav-menu">☰</span>
+            </a>
+        </div>
+        
+        <a class="logo-link" href="index.html">
+            <h1>S2D CLI</h1>
+        </a>
+
+        <div class="row links">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <div class="row">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+
+        <ul class="nav-list">
+            <li class="level1 active nav-node"><a href="index.html">S2D CLI</a></li>
+            <li class="level2 nav-header">Getting Started</li>
+            <li class="level3 nav-leaf"><a href="getting_started.html">Installation & Usage</a></li>
+            <li class="level2 nav-header">Commands</li>
+            <li class="level3 nav-leaf"><a href="commands.html">Available Commands</a></li>
+            <li class="level2 nav-header">Project Management</li>
+            <li class="level3 nav-leaf"><a href="project_generation.html">Project Generation</a></li>
+            <li class="level3 nav-leaf"><a href="platform_support.html">Platform Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <nav id="page-nav">
+            <p class="header"><a href="index.html">S2D CLI</a></p>
+            <ul class="nav-list">
+                <li class="level1 nav-leaf"><a href="#overview">Overview</a></li>
+                <li class="level1 nav-leaf"><a href="#features">Features</a></li>
+                <li class="level1 nav-leaf"><a href="#quick-start">Quick Start</a></li>
+            </ul>
+            <p class="footer">v0.1.2</p>
+        </nav>
+
+        <main class="content">
+            <h1 id="s2d-cli" class="title">S2D CLI</h1>
+            <p>The S2D CLI tool for creating and managing S2D projects. Generate new Scala Native 2D game projects with automatic library setup and cross-platform configuration.</p>
+
+            <h2 id="overview" class="section">
+                <a class="anchor-link left" href="#overview">🔗</a>
+                Overview
+            </h2>
+            <p>S2D CLI is a command-line tool that simplifies the creation of new S2D (Scala 2D) projects. It automatically handles:</p>
+            <ul>
+                <li>Project template generation</li>
+                <li>Native library dependencies (SDL2, GLEW, STB)</li>
+                <li>Cross-platform build configuration</li>
+                <li>Build system setup (sbt or scala-cli)</li>
+            </ul>
+
+            <h2 id="features" class="section">
+                <a class="anchor-link left" href="#features">🔗</a>
+                Features
+            </h2>
+            <ul>
+                <li><strong>Project Generation</strong> - Create new S2D projects with a single command</li>
+                <li><strong>Build System Support</strong> - Choose between sbt and scala-cli</li>
+                <li><strong>Automatic Library Setup</strong> - Downloads and configures SDL2, GLEW, and STB libraries</li>
+                <li><strong>Cross-Platform</strong> - Windows support with automatic DLL copying, Unix/Linux/macOS with manual setup guidance</li>
+                <li><strong>Template Code</strong> - Includes working S2D application template</li>
+                <li><strong>Version Management</strong> - Automatically fetches latest S2D library versions</li>
+            </ul>
+
+            <h2 id="quick-start" class="section">
+                <a class="anchor-link left" href="#quick-start">🔗</a>
+                Quick Start
+            </h2>
+            <p>Generate a new S2D project:</p>
+            <pre><code>s2d --generate</code></pre>
+            
+            <p>The tool will prompt you for:</p>
+            <ul>
+                <li>Project name</li>
+                <li>Build system preference (scala-cli or sbt)</li>
+                <li>Project location</li>
+            </ul>
+
+            <p>For detailed installation instructions and advanced usage, see the <a href="getting_started.html">Getting Started</a> guide.</p>
+
+            <hr class="footer-rule">
+            <footer>
+                <p>S2D CLI v0.1.2 - <a href="https://github.com/FinochioM/S2D_CLI">GitHub Repository</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/docs.js"></script>
+</body>
+</html>
