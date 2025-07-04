@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation & Usage - S2D CLI Documentation</title>
+    <meta name="description" content="How to install and use the S2D CLI tool">
+    <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+    <header id="top-bar">
+        <div class="row">
+            <a id="nav-icon">
+                <span class="nav-menu">☰</span>
+            </a>
+        </div>
+        
+        <a class="logo-link" href="index.html">
+            <h1>S2D CLI</h1>
+        </a>
+
+        <div class="row links">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <div class="row">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+
+        <ul class="nav-list">
+            <li class="level1 nav-node"><a href="index.html">S2D CLI</a></li>
+            <li class="level2 nav-header">Getting Started</li>
+            <li class="level3 active nav-leaf"><a href="getting_started.html">Installation & Usage</a></li>
+            <li class="level2 nav-header">Commands</li>
+            <li class="level3 nav-leaf"><a href="commands.html">Available Commands</a></li>
+            <li class="level2 nav-header">Project Management</li>
+            <li class="level3 nav-leaf"><a href="project_generation.html">Project Generation</a></li>
+            <li class="level3 nav-leaf"><a href="platform_support.html">Platform Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <nav id="page-nav">
+            <p class="header"><a href="getting_started.html">Installation & Usage</a></p>
+            <ul class="nav-list">
+                <li class="level1 nav-leaf"><a href="#prerequisites">Prerequisites</a></li>
+                <li class="level1 nav-leaf"><a href="#installation">Installation</a></li>
+                <li class="level1 nav-leaf"><a href="#verification">Verification</a></li>
+                <li class="level1 nav-leaf"><a href="#basic-usage">Basic Usage</a></li>
+                <li class="level1 nav-leaf"><a href="#your-first-project">Your First Project</a></li>
+            </ul>
+            <p class="footer">v0.1.2</p>
+        </nav>
+
+        <main class="content">
+            <h1 id="installation-usage" class="title">Installation & Usage</h1>
+            <p>Get started with S2D CLI by installing the tool and creating your first S2D project.</p>
+
+            <h2 id="prerequisites" class="section">
+                <a class="anchor-link left" href="#prerequisites">🔗</a>
+                Prerequisites
+            </h2>
+            <p>Before installing S2D CLI, ensure you have the following installed:</p>
+            <ul>
+                <li><strong>Java 11 or later</strong> - Required for Scala and sbt</li>
+                <li><strong>Scala 3.3.6</strong> - The language version used by S2D</li>
+                <li><strong>sbt 1.11.2 or scala-cli</strong> - Build tools for Scala projects</li>
+                <li><strong>Git</strong> - Required for cloning library dependencies</li>
+            </ul>
+
+            <p><strong>Platform-specific requirements:</strong></p>
+            <ul>
+                <li><strong>Windows:</strong> No additional setup required - libraries included automatically</li>
+                <li><strong>Linux:</strong> Install SDL2, GLEW development packages</li>
+                <li><strong>macOS:</strong> Install SDL2, GLEW via Homebrew</li>
+            </ul>
+
+            <h2 id="installation" class="section">
+                <a class="anchor-link left" href="#installation">🔗</a>
+                Installation
+            </h2>
+            <p>S2D CLI is distributed via Coursier. This is the recommended and only supported installation method:</p>
+
+            <h3>Install via Coursier</h3>
+            <pre><code>cs install s2d --contrib</code></pre>
+
+            <p>This will make the <code>s2d</code> command available globally on your system.</p>
+
+            <h3>Alternative: Build from Source (Not Recommended)</h3>
+            <p>If you need to build from source for development purposes:</p>
+            <pre><code>git clone https://github.com/FinochioM/S2D_CLI.git
+            cd S2D_CLI
+            sbt publishLocal</code></pre>
+
+            <h2 id="verification" class="section">
+                <a class="anchor-link left" href="#verification">🔗</a>
+                Verification
+            </h2>
+            <p>Verify your installation by running the help command:</p>
+            <pre><code>s2d --help</code></pre>
+
+            <p>You should see output similar to:</p>
+            <pre><code>S2D - Scala 2D Native Library CLI Tool
+
+            Usage:
+            s2d --generate    Generate a new S2D project template
+            s2d --help        Show this help message</code></pre>
+
+            <h2 id="basic-usage" class="section">
+                <a class="anchor-link left" href="#basic-usage">🔗</a>
+                Basic Usage
+            </h2>
+            <p>S2D CLI provides two main commands:</p>
+
+            <h3>Generate a new project</h3>
+            <pre><code>s2d --generate</code></pre>
+
+            <h3>Show help</h3>
+            <pre><code>s2d --help</code></pre>
+
+            <h3>Cancel operation</h3>
+            <p>During project generation, you can type <code>cancel</code> at any prompt to exit.</p>
+
+            <h2 id="your-first-project" class="section">
+                <a class="anchor-link left" href="#your-first-project">🔗</a>
+                Your First Project
+            </h2>
+            <p>Let's create your first S2D project:</p>
+
+            <ol>
+                <li><strong>Run the generator:</strong>
+                    <pre><code>s2d --generate</code></pre>
+                </li>
+                <li><strong>Follow the prompts:</strong>
+                    <ul>
+                        <li>Enter project name (e.g., "my-first-game")</li>
+                        <li>Choose build system (scala-cli recommended for beginners)</li>
+                        <li>Enter project path (or press Enter for current directory)</li>
+                    </ul>
+                </li>
+                <li><strong>Navigate to your project:</strong>
+                    <pre><code>cd my-first-game</code></pre>
+                </li>
+                <li><strong>Run the project:</strong>
+                    <pre><code># For scala-cli projects:
+            scala-cli run .
+
+            # For sbt projects:
+            sbt run</code></pre>
+                </li>
+            </ol>
+
+            <p>Your S2D window should open displaying a blue background. You're now ready to start building your game!</p>
+
+            <p>For more details on project structure and customization, see the <a href="project_generation.html">Project Generation</a> guide.</p>
+            <hr class="footer-rule">
+            <footer>
+                <p>S2D CLI v0.1.2 - <a href="https://github.com/FinochioM/S2D_CLI">GitHub Repository</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/docs.js"></script>
+</body>
+</html>
