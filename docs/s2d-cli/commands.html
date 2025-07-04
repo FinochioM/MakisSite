@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Commands - S2D CLI Documentation</title>
+    <meta name="description" content="Complete reference of all S2D CLI commands">
+    <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+    <header id="top-bar">
+        <div class="row">
+            <a id="nav-icon">
+                <span class="nav-menu">☰</span>
+            </a>
+        </div>
+        
+        <a class="logo-link" href="index.html">
+            <h1>S2D CLI</h1>
+        </a>
+
+        <div class="row links">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <div class="row">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+
+        <ul class="nav-list">
+            <li class="level1 nav-node"><a href="index.html">S2D CLI</a></li>
+            <li class="level2 nav-header">Getting Started</li>
+            <li class="level3 nav-leaf"><a href="getting_started.html">Installation & Usage</a></li>
+            <li class="level2 nav-header">Commands</li>
+            <li class="level3 active nav-leaf"><a href="commands.html">Available Commands</a></li>
+            <li class="level2 nav-header">Project Management</li>
+            <li class="level3 nav-leaf"><a href="project_generation.html">Project Generation</a></li>
+            <li class="level3 nav-leaf"><a href="platform_support.html">Platform Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <nav id="page-nav">
+            <p class="header"><a href="commands.html">Available Commands</a></p>
+            <ul class="nav-list">
+                <li class="level1 nav-leaf"><a href="#overview">Overview</a></li>
+                <li class="level1 nav-leaf"><a href="#generate">--generate</a></li>
+                <li class="level1 nav-leaf"><a href="#help">--help</a></li>
+                <li class="level1 nav-leaf"><a href="#interactive-commands">Interactive Commands</a></li>
+                <li class="level1 nav-leaf"><a href="#examples">Examples</a></li>
+            </ul>
+            <p class="footer">v0.1.2</p>
+        </nav>
+
+        <main class="content">
+            <h1 id="commands" class="title">Available Commands</h1>
+            <p>Complete reference for all S2D CLI commands and their usage.</p>
+
+            <h2 id="overview" class="section">
+                <a class="anchor-link left" href="#overview">🔗</a>
+                Overview
+            </h2>
+            <p>S2D CLI provides a simple command-line interface with the following commands:</p>
+            <ul>
+                <li><code>s2d --generate</code> - Generate a new S2D project</li>
+                <li><code>s2d --help</code> - Display help information</li>
+                <li><code>s2d</code> (no arguments) - Same as <code>--help</code></li>
+            </ul>
+
+            <h2 id="generate" class="section">
+                <a class="anchor-link left" href="#generate">🔗</a>
+                --generate
+            </h2>
+            <p>Creates a new S2D project with all necessary files and dependencies.</p>
+
+            <h3>Usage</h3>
+            <pre><code>s2d --generate</code></pre>
+
+            <h3>What it does</h3>
+            <ul>
+                <li>Displays the S2D ASCII art banner</li>
+                <li>Prompts for project configuration</li>
+                <li>Creates project directory structure</li>
+                <li>Downloads and configures S2D libraries from GitHub</li>
+                <li>Sets up build files (sbt or scala-cli)</li>
+                <li>Generates template main.scala file</li>
+                <li>Copies required native libraries (Windows only)</li>
+                <li>Creates assets directory</li>
+            </ul>
+
+            <h3>Interactive Prompts</h3>
+            <p>The command will prompt you for:</p>
+            <ul>
+                <li><strong>Project name</strong> - Default: "my-s2d-project"</li>
+                <li><strong>Build system</strong> - Options: scala-cli (default) or sbt</li>
+                <li><strong>Project path</strong> - Default: current directory</li>
+            </ul>
+
+            <h3>Generated Project Structure</h3>
+            <pre><code>my-s2d-project/
+├── main.scala              # Template application
+├── project.scala           # Scala-CLI configuration (if chosen)
+├── build.sbt              # SBT configuration (if chosen)
+├── project/               # SBT project files (if chosen)
+├── libraries/             # Downloaded S2D libraries
+├── assets/                # Asset directory
+├── SDL2.dll              # Windows DLL (Windows only)
+└── glew32.dll            # Windows DLL (Windows only)</code></pre>
+
+            <h2 id="help" class="section">
+                <a class="anchor-link left" href="#help">🔗</a>
+                --help
+            </h2>
+            <p>Displays usage information and available commands.</p>
+
+            <h3>Usage</h3>
+            <pre><code>s2d --help</code></pre>
+
+            <h3>Output</h3>
+            <pre><code>S2D - Scala 2D Native Library CLI Tool
+
+Usage:
+  s2d --generate    Generate a new S2D project template
+  s2d --help        Show this help message</code></pre>
+
+            <h2 id="interactive-commands" class="section">
+                <a class="anchor-link left" href="#interactive-commands">🔗</a>
+                Interactive Commands
+            </h2>
+            <p>During the <code>--generate</code> process, you can use these interactive commands:</p>
+
+            <h3>Cancel Operation</h3>
+            <p>Type <code>cancel</code> at any prompt to exit the project generation process:</p>
+            <pre><code>Enter project name [my-s2d-project]: cancel
+Operation cancelled.</code></pre>
+
+            <h3>Default Values</h3>
+            <p>Press <strong>Enter</strong> at any prompt to use the default value shown in brackets:</p>
+            <pre><code>Enter project name [my-s2d-project]: ↵
+# Uses "my-s2d-project" as the project name</code></pre>
+
+            <h2 id="examples" class="section">
+                <a class="anchor-link left" href="#examples">🔗</a>
+                Examples
+            </h2>
+
+            <h3>Generate a New Project</h3>
+            <pre><code>$ s2d --generate
+
+    ╔═══════════════════════════════════════╗
+    ║                                       ║
+    ║        ███████╗██████╗ ██████╗        ║
+    ║        ██╔════╝╚════██╗██╔══██╗       ║
+    ║        ███████╗ █████╔╝██║  ██║       ║
+    ║        ╚════██║██╔═══╝ ██║  ██║       ║
+    ║        ███████║███████╗██████╔╝       ║
+    ║        ╚══════╝╚══════╝╚═════╝        ║
+    ║                                       ║
+    ║         Scala 2D Native Library       ║
+    ║               CLI Tool                ║
+    ║                                       ║
+    ╚═══════════════════════════════════════╝
+
+Starting S2D project template generation...
+
+Enter project name [my-s2d-project]: my-game
+Choose build system:
+  1. scala-cli (recommended)
+  2. sbt
+  0. cancel
+Enter choice [1]: 1
+Enter project path [.]: ./projects
+
+Creating project 'my-game' at './projects'
+Using build system: scala-cli
+
+Creating project directory...
+Downloading S2D libraries...
+Setting up project files...
+Creating assets directory...
+
+Project 'my-game' created successfully!
+Location: /path/to/projects/my-game</code></pre>
+
+            <h3>Get Help</h3>
+            <pre><code>$ s2d --help
+S2D - Scala 2D Native Library CLI Tool
+
+Usage:
+  s2d --generate    Generate a new S2D project template
+  s2d --help        Show this help message</code></pre>
+
+            <h3>Using Default Values</h3>
+            <pre><code>$ s2d --generate
+# Accept all defaults by pressing Enter
+Enter project name [my-s2d-project]: ↵
+Choose build system:
+  1. scala-cli (recommended)
+  2. sbt
+  0. cancel
+Enter choice [1]: ↵
+Enter project path [.]: ↵
+
+# Creates "my-s2d-project" with scala-cli in current directory</code></pre>
+
+            <hr class="footer-rule">
+            <footer>
+                <p>S2D CLI v0.1.2 - <a href="https://github.com/FinochioM/S2D_CLI">GitHub Repository</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/docs.js"></script>
+</body>
+</html>

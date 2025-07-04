@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Support - S2D CLI Documentation</title>
+    <meta name="description" content="Platform-specific setup and configuration for S2D CLI">
+    <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+    <header id="top-bar">
+        <div class="row">
+            <a id="nav-icon">
+                <span class="nav-menu">☰</span>
+            </a>
+        </div>
+        
+        <a class="logo-link" href="index.html">
+            <h1>S2D CLI</h1>
+        </a>
+
+        <div class="row links">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <div class="row">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+
+        <ul class="nav-list">
+            <li class="level1 nav-node"><a href="index.html">S2D CLI</a></li>
+            <li class="level2 nav-header">Getting Started</li>
+            <li class="level3 nav-leaf"><a href="getting_started.html">Installation & Usage</a></li>
+            <li class="level2 nav-header">Commands</li>
+            <li class="level3 nav-leaf"><a href="commands.html">Available Commands</a></li>
+            <li class="level2 nav-header">Project Management</li>
+            <li class="level3 nav-leaf"><a href="project_generation.html">Project Generation</a></li>
+            <li class="level3 nav-leaf active"><a href="platform_support.html">Platform Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <nav id="page-nav">
+            <p class="header"><a href="platform_support.html">Platform Support</a></p>
+            <ul class="nav-list">
+                <li class="level1 nav-leaf"><a href="#overview">Overview</a></li>
+                <li class="level1 nav-leaf"><a href="#windows">Windows</a></li>
+                <li class="level1 nav-leaf"><a href="#linux">Linux</a></li>
+                <li class="level1 nav-leaf"><a href="#macos">macOS</a></li>
+                <li class="level1 nav-leaf"><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+            <p class="footer">v0.1.2</p>
+        </nav>
+
+        <main class="content">
+            <h1 id="platform-support" class="title">Platform Support</h1>
+            <p>S2D CLI supports Windows, Linux, and macOS with different levels of automation for each platform.</p>
+
+            <h2 id="overview" class="section">
+                <a class="anchor-link left" href="#overview">🔗</a>
+                Overview
+            </h2>
+            <p>S2D CLI automatically detects your operating system and configures projects accordingly. However, the level of automation varies significantly between platforms:</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <thead>
+                    <tr style="background-color: #f8f9fa;">
+                        <th style="border: 1px solid #e9ecef; padding: 0.5rem; text-align: left;">Platform</th>
+                        <th style="border: 1px solid #e9ecef; padding: 0.5rem; text-align: left;">Library Setup</th>
+                        <th style="border: 1px solid #e9ecef; padding: 0.5rem; text-align: left;">Native Libraries</th>
+                        <th style="border: 1px solid #e9ecef; padding: 0.5rem; text-align: left;">Build Configuration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;"><strong>Windows</strong></td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">✅ Automatic</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">✅ DLLs copied</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">✅ Full paths configured</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;"><strong>Linux</strong></td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ Manual required</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ System install needed</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ Manual configuration</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;"><strong>macOS</strong></td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ Manual required</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ Homebrew install needed</td>
+                        <td style="border: 1px solid #e9ecef; padding: 0.5rem;">⚠️ Manual configuration</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="windows" class="section">
+                <a class="anchor-link left" href="#windows">🔗</a>
+                Windows
+            </h2>
+            <p>Windows has the best support with full automation. S2D CLI will:</p>
+
+            <h3>Automatic Setup</h3>
+            <ul>
+                <li>Download SDL2, GLEW, and STB libraries automatically</li>
+                <li>Copy required DLLs (<code>SDL2.dll</code>, <code>glew32.dll</code>) to project root</li>
+                <li>Configure build files with correct library and include paths</li>
+                <li>Set up linking options for Windows-specific libraries</li>
+            </ul>
+
+            <h3>Generated Configuration</h3>
+            <p>The build configuration includes:</p>
+            <pre><code>// SBT example
+nativeConfig ~= { c =>
+  c.withLinkingOptions(c.linkingOptions ++ Seq(
+    "-LC:\\path\\to\\project\\libraries\\SDL2\\lib",
+    "-LC:\\path\\to\\project\\libraries\\glew\\lib\\Release\\x64",
+    "-LC:\\path\\to\\project\\libraries\\STB",
+    "-lSDL2", "-lSDL2main", "-lglew32", "-lopengl32", "-lglu32"
+  ))
+}</code></pre>
+
+            <h3>Project Structure (Windows)</h3>
+            <pre><code>my-s2d-project/
+├── SDL2.dll                    # Copied automatically
+├── glew32.dll                  # Copied automatically
+├── libraries/
+│   ├── SDL2/
+│   │   ├── lib/               # Windows libraries
+│   │   └── include/           # Headers
+│   ├── glew/
+│   │   ├── lib/Release/x64/   # Windows libraries
+│   │   └── include/           # Headers
+│   └── STB/
+│       └── include/           # Headers
+└── main.scala</code></pre>
+
+            <h2 id="linux" class="section">
+                <a class="anchor-link left" href="#linux">🔗</a>
+                Linux
+            </h2>
+            <p>Linux requires manual setup of native libraries. S2D CLI will generate a project with commented configuration that you need to enable after installing dependencies.</p>
+
+            <h3>Required Dependencies</h3>
+            <p>Install development packages for SDL2, GLEW, and STB:</p>
+
+            <h4>Ubuntu/Debian</h4>
+            <pre><code>sudo apt-get update
+sudo apt-get install libsdl2-dev libglew-dev libstb-dev</code></pre>
+
+            <h4>Fedora/RHEL</h4>
+            <pre><code>sudo dnf install SDL2-devel glew-devel stb-devel</code></pre>
+
+            <h4>Arch Linux</h4>
+            <pre><code>sudo pacman -S sdl2 glew stb</code></pre>
+
+            <h3>Manual Configuration</h3>
+            <p>After installing dependencies, uncomment and adjust the build configuration:</p>
+            <pre><code>// Uncomment and adjust paths as needed
+nativeConfig ~= { c =>
+  c.withLinkingOptions(c.linkingOptions ++ Seq(
+    "-lSDL2", "-lSDL2main", "-lGLEW", "-lGL"
+  ))
+}</code></pre>
+
+            <h3>Warning Message</h3>
+            <p>When generating projects on Linux, you'll see:</p>
+            <pre><code>WARNING: Generated project requires manual configuration on non-Windows systems
+ - Install SDL2, GLEW, and STB development libraries for your platform
+ - Update the native linking paths in your build configuration
+ - For Ubuntu/Debian: sudo apt-get install libsdl2-dev libglew-dev</code></pre>
+
+            <h2 id="macos" class="section">
+                <a class="anchor-link left" href="#macos">🔗</a>
+                macOS
+            </h2>
+            <p>macOS requires manual setup using Homebrew or MacPorts.</p>
+
+            <h3>Required Dependencies</h3>
+            <h4>Using Homebrew (Recommended)</h4>
+            <pre><code>brew install sdl2 glew</code></pre>
+
+            <h4>Using MacPorts</h4>
+            <pre><code>sudo port install libsdl2 glew</code></pre>
+
+            <h3>Manual Configuration</h3>
+            <p>After installing dependencies, uncomment and adjust the build configuration:</p>
+            <pre><code>// Uncomment and adjust for macOS
+nativeConfig ~= { c =>
+  c.withLinkingOptions(c.linkingOptions ++ Seq(
+    "-lSDL2", "-lSDL2main", "-lGLEW",
+    "-framework OpenGL"  // macOS-specific
+  ))
+}</code></pre>
+
+            <h3>Framework Linking</h3>
+            <p>macOS uses frameworks instead of traditional libraries for OpenGL:</p>
+            <ul>
+                <li>Use <code>-framework OpenGL</code> instead of <code>-lGL</code></li>
+                <li>Ensure Xcode Command Line Tools are installed</li>
+                <li>May need to specify additional framework search paths</li>
+            </ul>
+
+            <h2 id="troubleshooting" class="section">
+                <a class="anchor-link left" href="#troubleshooting">🔗</a>
+                Troubleshooting
+            </h2>
+
+            <h3>Common Issues</h3>
+            <h4>Library Not Found Errors</h4>
+            <p>If you see linking errors like "library not found":</p>
+            <ul>
+                <li><strong>Windows:</strong> Ensure DLLs are in project root or system PATH</li>
+                <li><strong>Linux:</strong> Install dev packages and update build configuration</li>
+                <li><strong>macOS:</strong> Install via Homebrew and verify framework paths</li>
+            </ul>
+
+            <h4>Header File Errors</h4>
+            <p>If compilation fails with missing headers:</p>
+            <ul>
+                <li>Ensure development packages are installed (not just runtime libraries)</li>
+                <li>Verify include paths in build configuration</li>
+                <li>Check that libraries are installed system-wide</li>
+            </ul>
+
+            <h4>Runtime Errors</h4>
+            <p>If the compiled program fails to start:</p>
+            <ul>
+                <li><strong>Windows:</strong> Ensure DLLs are accessible</li>
+                <li><strong>Linux/macOS:</strong> Check <code>LD_LIBRARY_PATH</code> or use <code>ldd</code>/<code>otool</code> to verify dependencies</li>
+            </ul>
+
+            <h3>Getting Help</h3>
+            <p>If you encounter platform-specific issues:</p>
+            <ul>
+                <li>Check the <a href="https://github.com/FinochioM/S2D_CLI/issues">GitHub Issues</a></li>
+                <li>Verify your platform's development environment is complete</li>
+                <li>Test with a minimal SDL2 example outside of S2D</li>
+            </ul>
+
+            <hr class="footer-rule">
+            <footer>
+                <p>S2D CLI v0.1.2 - <a href="https://github.com/FinochioM/S2D_CLI">GitHub Repository</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/docs.js"></script>
+</body>
+</html>

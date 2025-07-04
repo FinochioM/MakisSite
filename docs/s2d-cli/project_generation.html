@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Generation - S2D CLI Documentation</title>
+    <meta name="description" content="Detailed guide to S2D project generation and structure">
+    <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+    <header id="top-bar">
+        <div class="row">
+            <a id="nav-icon">
+                <span class="nav-menu">☰</span>
+            </a>
+        </div>
+        
+        <a class="logo-link" href="index.html">
+            <h1>S2D CLI</h1>
+        </a>
+
+        <div class="row links">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+    </header>
+
+    <nav id="sidebar">
+        <div class="row">
+            <a class="button-link" href="https://github.com/FinochioM/S2D_CLI">GitHub</a>
+            <a class="button-link" href="../../index.html">Home</a>
+        </div>
+
+        <ul class="nav-list">
+            <li class="level1 nav-node"><a href="index.html">S2D CLI</a></li>
+            <li class="level2 nav-header">Getting Started</li>
+            <li class="level3 nav-leaf"><a href="getting_started.html">Installation & Usage</a></li>
+            <li class="level2 nav-header">Commands</li>
+            <li class="level3 nav-leaf"><a href="commands.html">Available Commands</a></li>
+            <li class="level2 nav-header">Project Management</li>
+            <li class="level3 active nav-leaf"><a href="project_generation.html">Project Generation</a></li>
+            <li class="level3 nav-leaf"><a href="platform_support.html">Platform Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <nav id="page-nav">
+            <p class="header"><a href="project_generation.html">Project Generation</a></p>
+            <ul class="nav-list">
+                <li class="level1 nav-leaf"><a href="#overview">Overview</a></li>
+                <li class="level1 nav-leaf"><a href="#build-systems">Build Systems</a></li>
+                <li class="level1 nav-leaf"><a href="#project-structure">Project Structure</a></li>
+                <li class="level1 nav-leaf"><a href="#template-files">Template Files</a></li>
+                <li class="level1 nav-leaf"><a href="#library-setup">Library Setup</a></li>
+                <li class="level1 nav-leaf"><a href="#customization">Customization</a></li>
+            </ul>
+            <p class="footer">v0.1.2</p>
+        </nav>
+
+        <main class="content">
+            <h1 id="project-generation" class="title">Project Generation</h1>
+            <p>Understanding how S2D CLI generates projects, build configurations, and templates.</p>
+
+            <h2 id="overview" class="section">
+                <a class="anchor-link left" href="#overview">🔗</a>
+                Overview
+            </h2>
+            <p>S2D CLI creates complete, ready-to-run game projects with minimal configuration. The generation process involves:</p>
+            <ol>
+                <li>User input collection (project name, build system, location)</li>
+                <li>Project directory creation</li>
+                <li>Library dependencies download from GitHub</li>
+                <li>Build system configuration</li>
+                <li>Template code generation</li>
+                <li>Platform-specific setup</li>
+            </ol>
+
+            <h2 id="build-systems" class="section">
+                <a class="anchor-link left" href="#build-systems">🔗</a>
+                Build Systems
+            </h2>
+            <p>S2D CLI supports two build systems with different approaches and target audiences.</p>
+
+            <h3>Scala-CLI (Recommended)</h3>
+            <p>The default and recommended option for new users and rapid prototyping.</p>
+
+            <h4>Advantages</h4>
+            <ul>
+                <li>Simpler configuration with directive comments</li>
+                <li>Faster startup for small projects</li>
+                <li>Single file configuration</li>
+                <li>Great for learning and experimentation</li>
+            </ul>
+
+            <h4>Generated Files</h4>
+            <ul>
+                <li><code>project.scala</code> - Build configuration with native linking directives</li>
+                <li><code>main.scala</code> - Application template</li>
+            </ul>
+
+            <h4>Example project.scala</h4>
+            <pre><code>//> using scala 3.3.6
+//> using platform native
+//> using dep "io.github.finochiom:s2d_native0.5_3:0.1.6"
+
+//> using nativeCompile "-IC:\\path\\libraries\\SDL2\\include"
+//> using nativeCompile "-IC:\\path\\libraries\\STB\\include"
+//> using nativeCompile "-IC:\\path\\libraries\\glew\\include"
+
+//> using nativeLinking "-LC:\\path\\libraries\\SDL2\\lib"
+//> using nativeLinking "-lSDL2" "-lSDL2main" "-lglew32"</code></pre>
+
+            <h3>SBT</h3>
+            <p>Traditional Scala build tool for more complex projects and teams.</p>
+
+            <h4>Advantages</h4>
+            <ul>
+                <li>Industry standard for Scala projects</li>
+                <li>Better for larger, multi-module projects</li>
+                <li>Rich plugin ecosystem</li>
+                <li>Advanced dependency management</li>
+            </ul>
+
+            <h4>Generated Files</h4>
+            <ul>
+                <li><code>build.sbt</code> - Main build configuration</li>
+                <li><code>project/plugins.sbt</code> - Scala Native plugin</li>
+                <li><code>project/build.properties</code> - SBT version</li>
+                <li><code>main.scala</code> - Application template</li>
+            </ul>
+
+            <h4>Example build.sbt</h4>
+            <pre><code>ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / scalaVersion := "3.3.6"
+
+lazy val root = (project in file("."))
+  .settings(
+    name := "s2d-project",
+    libraryDependencies ++= Seq(
+      "io.github.finochiom" % "s2d_native0.5_3" % "0.1.6"
+    ),
+    nativeConfig ~= { c =>
+      c.withLinkingOptions(c.linkingOptions ++ Seq(
+        "-LC:\\path\\libraries\\SDL2\\lib",
+        "-lSDL2", "-lSDL2main", "-lglew32"
+      ))
+    }
+  )
+  .enablePlugins(ScalaNativePlugin)</code></pre>
+
+            <h2 id="project-structure" class="section">
+                <a class="anchor-link left" href="#project-structure">🔗</a>
+                Project Structure
+            </h2>
+            <p>Generated projects follow a consistent structure regardless of build system:</p>
+
+            <pre><code>my-s2d-project/
+├── main.scala                  # Entry point and game template
+├── assets/                     # Asset directory for sprites, sounds, etc.
+├── libraries/                  # Downloaded S2D dependencies
+│   ├── SDL2/                   # SDL2 library files
+│   │   ├── include/            # Header files
+│   │   ├── lib/                # Static libraries (Windows)
+│   │   └── bin/                # DLLs (Windows)
+│   ├── glew/                   # GLEW library files
+│   │   ├── include/
+│   │   └── lib/
+│   └── STB/                    # STB image library
+│       └── include/
+├── project.scala               # Scala-CLI config (if chosen)
+├── build.sbt                   # SBT config (if chosen)
+├── project/                    # SBT project files (if chosen)
+│   ├── plugins.sbt
+│   └── build.properties
+├── SDL2.dll                    # Runtime DLL (Windows only)
+└── glew32.dll                  # Runtime DLL (Windows only)</code></pre>
+
+            <h3>Directory Purposes</h3>
+            <ul>
+                <li><strong>assets/</strong> - Store game assets (images, sounds, maps)</li>
+                <li><strong>libraries/</strong> - Native dependencies automatically downloaded</li>
+                <li><strong>project/</strong> - SBT build system files</li>
+                <li><strong>*.dll</strong> - Runtime libraries for Windows execution</li>
+            </ul>
+
+            <h2 id="template-files" class="section">
+                <a class="anchor-link left" href="#template-files">🔗</a>
+                Template Files
+            </h2>
+            <p>S2D CLI generates a working game template that demonstrates basic S2D usage.</p>
+
+            <h3>Generated main.scala</h3>
+            <pre><code>import s2d.core.{Window, Drawing}
+import s2d.types.*
+
+object main {
+  def main(args: Array[String]): Unit = {
+    println("S2D Project Template")
+    println("Starting S2D application...")
+    
+    // S2D library (version 0.1.6) is automatically imported
+    // Create a window using S2D
+    Window.create(800, 600, "My S2D Application")
+    
+    // Main game loop
+    while !Window.shouldCloseWindow() do
+      Drawing.beginFrame()
+      Drawing.clear(Color.fromHex("#3498DB").getOrElse(Color.Blue))
+
+      // TODO: Add your game logic here
+
+      Drawing.endFrame()
+    Window.close()
+    println("S2D application terminated.")
+  }
+}</code></pre>
+
+            <h3>Template Features</h3>
+            <ul>
+                <li><strong>Window Creation</strong> - 800x600 window with custom title</li>
+                <li><strong>Game Loop</strong> - Standard begin/end frame pattern</li>
+                <li><strong>Background Color</strong> - Blue background (#3498DB)</li>
+                <li><strong>Proper Cleanup</strong> - Window close handling</li>
+                <li><strong>Console Output</strong> - Status messages for debugging</li>
+            </ul>
+
+            <h3>Running the Template</h3>
+            <p>The generated template creates a working S2D application:</p>
+            <pre><code># For Scala-CLI projects
+scala-cli run .
+
+# For SBT projects
+sbt run</code></pre>
+
+            <h2 id="library-setup" class="section">
+                <a class="anchor-link left" href="#library-setup">🔗</a>
+                Library Setup
+            </h2>
+            <p>S2D CLI automatically handles library dependencies and native library setup.</p>
+
+            <h3>S2D Library Versioning</h3>
+            <p>The CLI automatically fetches the latest S2D version from GitHub releases:</p>
+            <ul>
+                <li>Queries GitHub API for latest tag</li>
+                <li>Uses format: <code>io.github.finochiom:s2d_native0.5_3:VERSION</code></li>
+                <li>Falls back to version 0.1.6 if API fails</li>
+            </ul>
+
+            <h3>Native Libraries Download</h3>
+            <p>Required native libraries are cloned from the S2D_Libraries repository:</p>
+            <pre><code>git clone https://github.com/FinochioM/S2D_Libraries.git libraries/</code></pre>
+
+            <h3>Platform-Specific Configuration</h3>
+            <h4>Windows (Automatic)</h4>
+            <ul>
+                <li>Full library paths configured in build files</li>
+                <li>DLLs copied to project root for runtime</li>
+                <li>Include directories set up for compilation</li>
+            </ul>
+
+            <h4>Unix/Linux/macOS (Manual)</h4>
+            <ul>
+                <li>Build configuration commented out</li>
+                <li>Warning messages displayed</li>
+                <li>User must install system libraries and uncomment configuration</li>
+            </ul>
+
+            <h2 id="customization" class="section">
+                <a class="anchor-link left" href="#customization">🔗</a>
+                Customization
+            </h2>
+            <p>Once generated, you can customize your S2D project in several ways.</p>
+
+            <h3>Project Configuration</h3>
+            <h4>Changing S2D Version</h4>
+            <p>Update the dependency version in your build file:</p>
+            <pre><code>// Scala-CLI
+//> using dep "io.github.finochiom:s2d_native0.5_3:NEW_VERSION"
+
+// SBT
+libraryDependencies ++= Seq(
+  "io.github.finochiom" % "s2d_native0.5_3" % "NEW_VERSION"
+)</code></pre>
+
+            <h4>Adding Dependencies</h4>
+            <p>Add additional Scala libraries as needed:</p>
+            <pre><code>// Additional JSON library example
+//> using dep "com.lihaoyi::upickle:3.1.0"</code></pre>
+
+            <h3>Code Structure</h3>
+            <h4>Organizing Game Code</h4>
+            <p>Expand beyond the template with proper structure:</p>
+            <pre><code>src/
+├── main/
+│   └── scala/
+│       ├── Main.scala          # Entry point
+│       ├── GameState.scala     # Game state management
+│       ├── entities/           # Game entities
+│       ├── systems/            # Game systems
+│       └── assets/             # Asset loading</code></pre>
+
+            <h4>Adding Game Logic</h4>
+            <p>Replace the TODO comment with your game implementation:</p>
+            <pre><code>// Replace the TODO section with:
+player.update(deltaTime)
+enemies.foreach(_.update(deltaTime))
+handleCollisions()
+renderEntities()</code></pre>
+
+            <h3>Asset Management</h3>
+            <p>Use the generated <code>assets/</code> directory for game resources:</p>
+            <pre><code>assets/
+├── sprites/
+│   ├── player.png
+│   └── enemies/
+├── sounds/
+│   └── music/
+└── maps/
+    └── level1.json</code></pre>
+
+            <hr class="footer-rule">
+            <footer>
+                <p>S2D CLI v0.1.2 - <a href="https://github.com/FinochioM/S2D_CLI">GitHub Repository</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/docs.js"></script>
+</body>
+</html>
