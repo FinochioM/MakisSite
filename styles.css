@@ -53,36 +53,46 @@ body {
 #header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 2rem;
-    min-height: 40vh;
+    min-height: 100vh;
+    transition: min-height 0.3s ease-out;
+    position: relative;
+}
+
+#header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 #header-left h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: 300;
-    margin-bottom: 0.5rem;
-    color: var(--header-text);
+    margin-bottom: 1rem;
+    line-height: 1.1;
 }
 
 #header-left h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 300;
     opacity: 0.9;
-    margin-bottom: 1rem;
-    color: var(--header-text);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    line-height: 1.4;
 }
 
 .links {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 /* Theme Toggle Styles */
 .theme-toggle {
-    position: relative;
-    margin-right: 0.5rem;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 10;
 }
 
 .theme-toggle input[type="checkbox"] {
@@ -150,38 +160,59 @@ body {
 }
 
 .icon-link {
-    color: var(--header-text);
+    color: white;
     opacity: 0.8;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
+    transform: scale(1);
 }
 
 .icon-link:hover {
     opacity: 1;
+    transform: scale(1.1);
+}
+
+.icon-link svg {
+    width: 32px;
+    height: 32px;
 }
 
 #header-right {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#header-right {
+    gap: 0;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .info-section p {
     margin-bottom: 0.5rem;
     opacity: 0.8;
     color: var(--header-text);
+    font-size: 1.2rem;
 }
 
 .info-section .large {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: bold;
     opacity: 1;
-    color: var(--header-text);
+    line-height: 1;
 }
 
 #content {
-    background: var(--content-bg);
-    color: var(--text-primary);
-    min-height: 60vh;
+    background: white;
+    color: #333;
+    min-height: 100vh;
     padding: 3rem 2rem;
-    transition: all 0.3s ease;
 }
 
 .library-grid {
@@ -254,19 +285,20 @@ body {
     #header {
         flex-direction: column;
         text-align: center;
+        justify-content: center;
+    }
+    
+    #header-left h1 {
+        font-size: 3.5rem;
+    }
+    
+    #header-left h2 {
+        font-size: 1.5rem;
     }
     
     #header-right {
         text-align: center;
         margin-top: 2rem;
-    }
-    
-    .library-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .links {
-        justify-content: center;
     }
 }
 

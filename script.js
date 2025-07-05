@@ -89,6 +89,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('header');
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.9;
+        
+        const minHeight = Math.max(40, 100 - (scrolled / window.innerHeight) * 60);
+        
+        header.style.minHeight = minHeight + 'vh';
+        
+        header.style.transform = `translateY(${rate}px)`;
+    });
+
     initializeTheme();
     updateLibraryVersions();
 });
